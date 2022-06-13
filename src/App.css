@@ -79,9 +79,8 @@ body {
 
   
 }
-.plus_five:hover,  .minus_five:hover, .plus_one:hover, .minus_one:hover {
-  border-style: inset;
-}
+/* .plus_five:hover,  .minus_five:hover, .plus_one:hover, .minus_one:hover {
+} */
 
 
 h2 {
