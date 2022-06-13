@@ -44,24 +44,25 @@ const startMetronome = async () => {
 console.log("starting metronome");
   Tone.Transport.start();
 }
+
 const stopMetronome = async () => {
   console.log("stopping metronome");
   Tone.Transport.stop();
   beat = 0;
 }
+
 const ToggleButton = ({ onClick, isRunning }) => {
-  const text = isRunning ? <div className ="stop_button"></div> : <div className ="start_button"></div>;
-  return <button onClick={onClick}>{text}</button>;
+    const text = isRunning ? <div className ="stop_button"></div> : <div className ="start_button"></div>;
+    return <button onClick={onClick}>{text}</button>;
+  
+ 
 };
-
-
 
 
 
 function App() {
   const [bpm, setBpm] = useState(100);
   const [on, setOn] = useState(false);
-  const [slider, setSlider] = useState(100);
 
   Tone.Transport.bpm.value = bpm;
 
@@ -74,15 +75,61 @@ function App() {
     setOn(!on);
   };
 
+  function minus_one() {
+    if (bpm <=40) {
+      setBpm(40);
+    }
+    else {
+      setBpm(bpm-1);
+    }
+  }
+
+  function minus_five() {
+    if (bpm < 45) {
+      setBpm(40);
+    }
+    else {
+      setBpm(bpm-5);
+    }
+  }
+
+  function add_one() {
+    if (bpm >=217) {
+      setBpm(218);
+    }
+    else {
+      setBpm(bpm+1);
+    }
+  }
+
+  function add_five() {
+    if (bpm >=213) {
+      setBpm(218);
+    }
+    else {
+      setBpm(bpm+5);
+    }
+  }
+
+
  
 
   return (
 
     <div className = "App">
-      <h1>Metronome</h1>
+   
+      <h1 className="metronome_header">Online Free Metronome</h1>
       <div>
         <ToggleButton onClick={handleToggle} isRunning={on} />
       </div>
+
+    <div className="boxes"> 
+      <div className = "box_1"> </div>
+      <div className = "box_2"> </div>
+      <div className = "box_3"> </div>
+      <div className = "box_4"> </div>
+    </div>
+  
 
 
     <div className='speed_buttons'> 
@@ -90,59 +137,64 @@ function App() {
       <input 
         type="button"
         value = {"-5"}
-        onClick = {(e) => setBpm(bpm-5)}
+        onClick = {minus_five}
         class= "minus_five"
-        
       />
 
       <input 
       type="button"
       value = {"-"}
-      onClick = {(e) => setBpm(bpm-1)}
+      onClick = {minus_one}
       class= "minus_one"
       />
   </div>
 
-  <div className= 'plus_buttons'> 
-
-      <input 
-      type="button"
-      value = {"+"}
-      onClick = {(e) => setBpm(bpm+1)}
-
-      class= "plus_one"
-      />
+{/* when user click +1 and +5 buttons, bpm is increased by 1 and 5, respectively  */}
+    <div className= 'plus_buttons'> 
+    
+        <input 
+          type="button"
+          value = {"+"}
+          onClick = {add_one}
+          class= "plus_one"
+        />
        
-       <input 
-        type="button"
-        value={"+5"}
-        onClick = {(e) => setBpm(bpm+5)}
+        <input 
+          type="button"
+          value={"+5"}
+          onClick = {add_five}
+          class= "plus_five"
+        />
+    </div>
 
-        class= "plus_five"
-      />
-  </div>
+  </div> 
+  <h2>{bpm} bpm</h2>
 
-</div>
- <h2> {bpm}</h2>
 
+{/* when user click and drags slider, bpm is set to new bpm defined by slider */}
 
 <input 
+   onChange = {(e) => setBpm(parseInt(e.target.value))} 
    type="range" 
    min="40" 
    max="218" 
    class="slider"
    defaultValue={100}
-   onChange = {(e) => setBpm(e.target.value)} 
+   value = {bpm}
    id="myRange"/>
+
    
+  
 
 <output 
+
    name ="result" 
    for="slider" 
    id="result"> 
 
 
-   </output>
+
+   </output> 
 
       <div id="wrapper">
 
