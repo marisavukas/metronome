@@ -54,12 +54,14 @@ body {
 .speed_buttons {
 
   display: flex;
+  
   margin-top: 10vh;
   width: auto;
   height: auto;
 
 
 }
+
 
  .plus_five,  .minus_five {
 
@@ -77,6 +79,10 @@ body {
 
   
 }
+.plus_five:hover,  .minus_five:hover, .plus_one:hover, .minus_one:hover {
+  border-style: inset;
+}
+
 
 h2 {
 
@@ -129,7 +135,7 @@ margin-left: 14vw;
 }
 
 .boxes {
-  display: flex;
+  display: none;
 
   
 }
