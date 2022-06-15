@@ -47,24 +47,23 @@ body {
   width: 100vw;
   height: auto;
 
-
-
 }
 
-.speed_buttons {
+/* }
+.oscillator_sound, .click_sound {
+background-color: black;} */
 
+
+.speed_buttons {
   display: flex;
-  
   margin-top: 10vh;
   width: auto;
   height: auto;
-
 
 }
 
 
  .plus_five,  .minus_five {
-
   background: #64c39b;
   border:none;
   color: white;
@@ -76,20 +75,18 @@ body {
   border-radius: 50%;
   height: auto;
 
-
-  
 }
-/* .plus_five:hover,  .minus_five:hover, .plus_one:hover, .minus_one:hover {
-} */
+.plus_five:hover,  .minus_five:hover, .plus_one:hover, .minus_one:hover, .slider:hover {
+cursor:pointer;}
 
 
 h2 {
-
   font-size: 1.5rem;
   margin: 1vh 0px;
 }
 
 .plus_one {
+
   background: #64c39b;
   border:none;
   color: white;
@@ -99,8 +96,13 @@ h2 {
   font-size: 20px;
   margin: 4px 2px;
   border-radius: 50%;
+  cursor: pointer;
+}
 
-
+.plus_one:hover, .minus_one:hover, .plus_five:hover,.minus_five:hover {
+  background: #04AA6D;
+  -webkit-transition: .4s;
+  transition: .4s;
 }
 
 .minus_one {
@@ -137,15 +139,6 @@ margin-left: 14vw;
   display: none;
 
   
-}
-.box_1,.box_2, .box_3, .box_4 {
-
-  border-style: solid;  
-  border-color:#64c39b;
-  padding: .5vh 1.5vh;
-  margin: 2.5vh 1vw;
-  width: 100px;
-
 }
 
 button {
@@ -191,21 +184,7 @@ button {
   margin: 10px -10px 10px 30px;  
   border-width: 0px 0px 0px 40px;
   border-color: white;
-
-
-  
-
 }
-
-
-
-
-/* #button {
-  height: 20px;
-  width: 100px;
-
-
-} */
 
 
 .slider {
@@ -223,12 +202,10 @@ button {
   -webkit-transition: .2s;
   transition: opacity .2s;
 }
-
 .slider:hover {
   opacity: 1;
 
 }
-
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
@@ -236,13 +213,87 @@ button {
   height: 25px;
   border-radius: 50%;
   background: #04AA6D;
-  cursor: pointer;
 }
-
 .slider::-moz-range-thumb {
   width: 25px;
   height: 25px;
-
   background: #04AA6D;
   cursor: pointer;
 }
+
+
+
+/* BELOW IS FOR TOGGLESWITCH ACCENTUATE HICLICK */
+/* box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 25px; 
+}
+
+/* makes checkbox disappear */
+.switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+
+#slider {
+  position: absolute;
+  cursor:pointer;
+  top: .5vh;
+  left: 0;
+  right: 0;
+  bottom: .5vh;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+#slider:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  left: 5px;
+  bottom: 0;
+  top: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+
+}
+
+
+input:checked + #slider {
+  background-color: #64c39bae;
+
+}
+
+input:focus + #slider {
+  box-shadow: 0 0 1px #64c39bae;
+
+}
+
+input:checked + #slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(35px);
+}
+
+
+
+
+.accentuate_click_section {
+  display: block;
+  margin-top: 1.5vh;
+  margin-left: auto;
+  margin-right: 0;
+  text-align: right;
+  width: 40%;
+}
+
+

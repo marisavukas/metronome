@@ -2,14 +2,44 @@ import './App.css';
 import React, { useState } from "react";
 import * as Tone from "tone";
 import { setContext } from 'tone';
+import { start } from 'tone';
 
 let isBeepLoaded = false;
-let isMetronomeRunning = false;
 let beat = 0;
 
-
-
+// function that runs the metronome with the same click tone on every beat 
 const startMetronome = async () => {
+  if (!isBeepLoaded) {
+    await Tone.context.resume();
+    const loTone = new Tone.Oscillator(440).toDestination();
+
+    await Tone.loaded();
+    console.log("beep is loaded");  
+    
+
+    let beatsPerMeasure = 4;
+
+    
+      Tone.Transport.scheduleRepeat(time => {
+          loTone.start(time).stop(time + 0.1);
+          console.log("lo beep plays");
+          console.log(beat);
+        
+  
+        }, "4n");
+  }
+      
+    
+    isBeepLoaded = true;
+
+
+console.log("starting metronome");
+  Tone.Transport.start();
+}
+
+
+// function that runs the metronome with a higher click on the first note
+const startAccentuatedMetronome = async () => {
   if (!isBeepLoaded) {
     await Tone.context.resume();
     const hiTone = new Tone.Oscillator(540).toDestination();
@@ -40,13 +70,18 @@ const startMetronome = async () => {
     }
     isBeepLoaded = true;
 
-
-console.log("starting metronome");
+console.log("starting accentuated metronome");
   Tone.Transport.start();
 }
 
 const stopMetronome = async () => {
-  console.log("stopping metronome");
+  console.log("stopping normal  metronome");
+  Tone.Transport.stop();
+  beat = 0;
+}
+
+const stopAccentuatedMetronome = async () => {
+  console.log("stopping accentuated metronome");
   Tone.Transport.stop();
   beat = 0;
 }
@@ -54,7 +89,6 @@ const stopMetronome = async () => {
 const ToggleButton = ({ onClick, isRunning }) => {
     const text = isRunning ? <div className ="stop_button"></div> : <div className ="start_button"></div>;
     return <button onClick={onClick}>{text}</button>;
-  
  
 };
 
@@ -63,17 +97,50 @@ const ToggleButton = ({ onClick, isRunning }) => {
 function App() {
   const [bpm, setBpm] = useState(100);
   const [on, setOn] = useState(false);
+  const [accentuate,setAccentuate] = useState(false);
+  
 
   Tone.Transport.bpm.value = bpm;
+
+// this part is what im having issues with   
+  const handleAccentuatedClickToggle= () => {
+    if (accentuate) {
+      console.log("accentuate off");
+
+    } 
+    if (!accentuate) {
+      console.log("accentuate on");
+      
+
+    }
+    setAccentuate(!accentuate);
+
+  
+  }
+
 
   const handleToggle = () => {
     if (on) {
       stopMetronome();
-    } else {
-      startMetronome();
+    }
+
+    else {
+      if (!on) {      
+        if(accentuate){startMetronome();}
+
+      }
+      if (!on) {
+        if(!accentuate){startAccentuatedMetronome();}
+
+
+      };
     }
     setOn(!on);
+
   };
+
+
+ 
 
   function minus_one() {
     if (bpm <=40) {
@@ -112,7 +179,6 @@ function App() {
   }
 
 
- 
 
   return (
 
@@ -120,16 +186,11 @@ function App() {
    
       <h1 className="metronome_header">Online Free Metronome</h1>
       <div>
+      </div>
+      <div>
         <ToggleButton onClick={handleToggle} isRunning={on} />
       </div>
 
-    <div className="boxes"> 
-      <div className = "box_1"> </div>
-      <div className = "box_2"> </div>
-      <div className = "box_3"> </div>
-      <div className = "box_4"> </div>
-    </div>
-  
 
 
     <div className='speed_buttons'> 
@@ -196,13 +257,28 @@ function App() {
 
    </output> 
 
-      <div id="wrapper">
+{/* toggle switch to turn off/on accentuated first click */}
+<div className='accentuate_click_section'>
+<div className="accentuate_click_text">Accentuate first click</div>
+<label class = "switch"> 
+  <input 
+  type = "checkbox"
+  // on click handles whether or not first click will be accentuated
+  onClick={handleAccentuatedClickToggle} isAccentuated= {accentuate}
+  
+    
+  />     
+  
+  <span id="slider"></span>
+</label>     
+  </div>
 
-      </div>
+
     </div>
 
   );
 }
+
 
 document.querySelector('button')?.addEventListener('click', async () => {
   await Tone.start();
