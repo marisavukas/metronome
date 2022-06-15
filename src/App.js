@@ -106,17 +106,19 @@ function App() {
   const handleAccentuatedClickToggle= () => {
     if (accentuate) {
       console.log("accentuate off");
-
-    } 
+   
+      
+    }
     if (!accentuate) {
       console.log("accentuate on");
+  
       
 
     }
     setAccentuate(!accentuate);
 
   
-  }
+  };
 
 
   const handleToggle = () => {
@@ -125,14 +127,13 @@ function App() {
     }
 
     else {
+
       if (!on) {      
-        if(accentuate){startMetronome();}
-
+        if (!accentuate) {startMetronome();}
       }
+
       if (!on) {
-        if(!accentuate){startAccentuatedMetronome();}
-
-
+        if (accentuate) {startAccentuatedMetronome();}
       };
     }
     setOn(!on);
