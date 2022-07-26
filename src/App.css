@@ -1,6 +1,4 @@
 
-
-
 * {
   box-sizing: border-box;
 
@@ -223,7 +221,6 @@ button {
 
 
 
-/* BELOW IS FOR TOGGLESWITCH ACCENTUATE HICLICK */
 /* box around the slider */
 .switch {
   position: relative;
@@ -285,15 +282,5 @@ input:checked + #slider:before {
 }
 
 
-
-
-.accentuate_click_section {
-  display: block;
-  margin-top: 1.5vh;
-  margin-left: auto;
-  margin-right: 0;
-  text-align: right;
-  width: 40%;
-}
 
 
