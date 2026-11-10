@@ -1,8 +1,6 @@
 import "./App.css";
 import React, { useState } from "react";
 import * as Tone from "tone";
-import { setContext } from "tone";
-import { start } from "tone";
 
 let isBeepLoaded = false;
 let beat = 0;
@@ -15,8 +13,6 @@ const startMetronome = async () => {
 
     await Tone.loaded();
     console.log("beep is loaded");
-
-    let beatsPerMeasure = 4;
 
     Tone.Transport.scheduleRepeat((time) => {
       loTone.start(time).stop(time + 0.1);
@@ -94,6 +90,7 @@ function App() {
 
   Tone.Transport.bpm.value = bpm;
 
+  // eslint-disable-next-line no-unused-vars
   const handleSound = () => {
     if (sound) {
       setSound(!sound);
@@ -104,6 +101,7 @@ function App() {
   };
 
   // this part is what im having issues with
+  // eslint-disable-next-line no-unused-vars
   const handleAccentuatedClickToggle = () => {
     if (accentuate) {
       console.log("accentuate off");
